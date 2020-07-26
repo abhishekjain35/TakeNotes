@@ -5,11 +5,8 @@ export const NavContainer = styled.div`
     background-color: #90caf9;
     display: flex;
     justify-content: space-between;
-    @media (min-width: 600px) {
-        min-height: 64px;
-    }
+    min-height: 64px;
     align-items: center;
-    padding: 10px;
 `;
 
 export const Button = styled.button`
