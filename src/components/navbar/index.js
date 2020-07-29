@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import SvgIcon from "@material-ui/core/SvgIcon";
+import { auth } from "../../firebase";
 
 const useStyles = makeStyles((theme) => ({
     link: {
@@ -20,6 +21,13 @@ const useStyles = makeStyles((theme) => ({
 export default function ButtonAppBar() {
     const classes = useStyles();
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            setIsLoggedIn(true);
+            console.log(user)
+        }
+    });
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -42,22 +50,24 @@ export default function ButtonAppBar() {
                             </SvgIcon>
                         </Button>
                     </div>
-                    <div>
-                        <Link
-                            className={classes.link}
-                            color="inherit"
-                            to="/login"
-                        >
-                            <Button color="inherit">Login</Button>
-                        </Link>
-                        <Link
-                            className={classes.link}
-                            color="inherit"
-                            to="/signup"
-                        >
-                            <Button color="inherit">Signup</Button>
-                        </Link>
-                    </div>
+                    {isLoggedIn && (
+                        <div>
+                            <Link
+                                className={classes.link}
+                                color="inherit"
+                                to="/login"
+                            >
+                                <Button color="inherit">Login</Button>
+                            </Link>
+                            <Link
+                                className={classes.link}
+                                color="inherit"
+                                to="/signup"
+                            >
+                                <Button color="inherit">Signup</Button>
+                            </Link>
+                        </div>
+                    )}
                 </Toolbar>
             </AppBar>
         </div>
