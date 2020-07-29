@@ -1,6 +1,5 @@
 import React from "react";
 import SimpleCard from "./card";
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
 
 const Home = () => {
@@ -32,12 +31,8 @@ const Home = () => {
         },
     ];
 
-    const useStyles = makeStyles({
-        
-    })
-
     return (
-        <div style={{width: "90%", margin: "auto"}}>
+        <div style={{ width: "90%", margin: "auto" }}>
             <Grid
                 style={{ padding: "50px 100px" }}
                 container
