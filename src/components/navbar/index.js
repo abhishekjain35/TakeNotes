@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import SvgIcon from "@material-ui/core/SvgIcon";
-import { auth } from "../../firebase";
+import { auth, firestore } from "../../firebase";
 
 const useStyles = makeStyles((theme) => ({
     link: {
@@ -22,9 +22,11 @@ export default function ButtonAppBar() {
     const classes = useStyles();
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [username, setUsername] = useState("")
     auth.onAuthStateChanged((user) => {
         if (user) {
             setIsLoggedIn(true);
+            setUsername(user.displayName)
         }
     });
 
@@ -33,6 +35,10 @@ export default function ButtonAppBar() {
             setIsLoggedIn(false);
         });
     };
+
+    // firestore.collection("users").doc(username).collection("notes").set({
+    //     title: "desss"
+    // })
 
     return (
         <div className={classes.root}>

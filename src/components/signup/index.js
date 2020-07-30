@@ -62,12 +62,19 @@ function SignUp({ history }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await auth.createUserWithEmailAndPassword(email, password).then((userData) => {
-            console.log(userData)   
-            setTimeout(() => {
-                history.push("/");
-            }, 2000);
-        });
+        await auth
+            .createUserWithEmailAndPassword(email, password)
+            .then((userData) => {
+                userData.user
+                    .updateProfile({
+                        displayName: name,
+                    })
+                    .then(() => {
+                        setTimeout(() => {
+                            history.push("/");
+                        }, 2000);
+                    });
+            });
     };
 
     // console.log(history);
