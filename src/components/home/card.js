@@ -7,8 +7,7 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
-    // display: "flex",
-    // justifyContent: "flex-start"
+    borderRadius: "10px"
   },
   bullet: {
     display: 'inline-block',

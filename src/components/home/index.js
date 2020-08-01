@@ -38,10 +38,10 @@ const Home = () => {
                 container
                 justify="space-around"
                 justify-xs="center"
-                spacing={5}
+                spacing={6}
             >
                 {testData.map((ele, index) => (
-                    <Grid key={index} item xs={8} lg={4}>
+                    <Grid key={index} item xs={8} lg={3}>
                         <SimpleCard
                             title={ele.title}
                             content={ele.content}
