@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import Home from "./components/home";
 import Navbar from "./containers/navbar";
-import Signup from "./components/signup";
+import Signup from "./containers/signup";
 import SignIn from "./containers/signin";
 import TakeNote from "./containers/notes";
 
