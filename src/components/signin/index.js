@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,7 +11,6 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Link, withRouter } from "react-router-dom";
-import { auth } from "../../firebase";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -25,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.secondary.main,
     },
     form: {
-        width: "100%", // Fix IE 11 issue.
+        width: "100%",
         marginTop: theme.spacing(1),
     },
     submit: {
@@ -33,26 +32,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SignIn = ({ history }) => {
+const SignInComponent = ({ handleChange, handleSignIn }) => {
     const classes = useStyles();
-
-    const [values, setvalues] = useState({
-        email: "",
-        password: "",
-    });
-
-    const handleChange = (name) => (e) => {
-        setvalues({ ...values, [name]: e.target.value });
-    };
-
-    const handleSignin = (e) => {
-        e.preventDefault();
-        auth.signInWithEmailAndPassword(values.email, values.password).then(
-            () => {
-                history.push("/");
-            }
-        );
-    };
 
     return (
         <Container component="main" maxWidth="xs">
@@ -99,7 +80,7 @@ const SignIn = ({ history }) => {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        onClick={handleSignin}
+                        onClick={handleSignIn}
                     >
                         Sign In
                     </Button>
@@ -116,4 +97,4 @@ const SignIn = ({ history }) => {
     );
 };
 
-export default withRouter(SignIn);
+export default withRouter(SignInComponent);

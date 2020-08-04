@@ -2,10 +2,10 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import Home from "./components/home";
-import Navbar from "./components/navbar";
+import Navbar from "./containers/navbar";
 import Signup from "./components/signup";
-import SignIn from "./components/signin";
-import TakeANote from "./components/notes";
+import SignIn from "./containers/signin";
+import TakeNote from "./containers/notes";
 
 function App() {
     return (
@@ -13,7 +13,7 @@ function App() {
             <Navbar />
             <Switch>
                 <Route path="/takeanote">
-                    <TakeANote />
+                    <TakeNote />
                 </Route>
                 <Route path="/signin">
                     <SignIn />

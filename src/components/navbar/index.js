@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import SvgIcon from "@material-ui/core/SvgIcon";
-import { auth } from "../../firebase";
 
 const useStyles = makeStyles((theme) => ({
     link: {
@@ -18,27 +17,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ButtonAppBar() {
+const NavBarComponent = ({ isLoggedIn, handleSignOut }) => {
     const classes = useStyles();
-
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [username, setUsername] = useState("")
-    auth.onAuthStateChanged((user) => {
-        if (user) {
-            setIsLoggedIn(true);
-            setUsername(user.displayName)
-        }
-    });
-
-    const handleSignOut = () => {
-        auth.signOut().then(() => {
-            setIsLoggedIn(false);
-        });
-    };
-
-    // firestore.collection("users").doc(username).collection("notes").set({
-    //     title: "desss"
-    // })
 
     return (
         <div className={classes.root}>
@@ -93,4 +73,6 @@ export default function ButtonAppBar() {
             </AppBar>
         </div>
     );
-}
+};
+
+export default NavBarComponent;

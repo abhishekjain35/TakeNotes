@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -7,9 +7,7 @@ import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { withRouter } from "react-router-dom";
 import Editor from "./editor";
-import { firestore, auth } from "../../firebase";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -31,40 +29,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const TakeNote = ({ history }) => {
+const TakeNoteComponent = ({
+    text,
+    headingText,
+    handleQuillChange,
+    handleHeadingChange,
+    handleSubmit,
+}) => {
     const classes = useStyles();
-    const [text, setText] = useState("");
-    const [headingText, setHeadingText] = useState("");
-    const [uid, setUid] = useState("");
-
-    auth.onAuthStateChanged((user) => {
-        if (user) {
-            setUid(user.uid);
-        }
-    });
-
-    const handleQuillChange = (value) => {
-        setText(value);
-    };
-    const handleHeadingChange = (e) => {
-        setHeadingText(e.target.value);
-    };
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        firestore
-            .collection("users")
-            .doc(uid)
-            .collection("notes")
-            .doc()
-            .set({
-                title: headingText,
-                description: text,
-            })
-            .then(() => {
-                history.push("/");
-            })
-            .catch((err) => console.log(err));
-    };
 
     return (
         <Container component="main" maxWidth="sm">
@@ -103,4 +75,4 @@ const TakeNote = ({ history }) => {
     );
 };
 
-export default withRouter(TakeNote);
+export default TakeNoteComponent;
