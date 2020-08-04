@@ -34,14 +34,14 @@ const Home = () => {
     return (
         <div style={{ width: "90%", margin: "auto" }}>
             <Grid
-                style={{ padding: "50px 100px" }}
+                style={{ padding: "50px 0px" }}
                 container
                 justify="space-around"
                 justify-xs="center"
-                spacing={6}
+                spacing={5}
             >
                 {testData.map((ele, index) => (
-                    <Grid key={index} item xs={8} lg={3}>
+                    <Grid key={index} item xs={10} lg={3} md={5}>
                         <SimpleCard
                             title={ele.title}
                             content={ele.content}

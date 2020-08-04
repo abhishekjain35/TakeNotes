@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import SvgIcon from "@material-ui/core/SvgIcon";
-import { auth, firestore } from "../../firebase";
+import { auth } from "../../firebase";
 
 const useStyles = makeStyles((theme) => ({
     link: {

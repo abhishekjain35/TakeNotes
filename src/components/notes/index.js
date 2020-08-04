@@ -3,16 +3,13 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Grid from "@material-ui/core/Grid";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { TextareaAutosize } from '@material-ui/core';
-import { Link, withRouter } from "react-router-dom";
-import { auth } from "../../firebase";
+import { withRouter } from "react-router-dom";
+import Editor from "./editor";
+import { firestore, auth } from "../../firebase";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -30,33 +27,47 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(1),
     },
     submit: {
-        margin: theme.spacing(3, 0, 2),
+        margin: theme.spacing(10, 0, 2),
     },
 }));
 
-const SignIn = ({ history }) => {
+const TakeNote = ({ history }) => {
     const classes = useStyles();
+    const [text, setText] = useState("");
+    const [headingText, setHeadingText] = useState("");
+    const [uid, setUid] = useState("");
 
-    const [values, setvalues] = useState({
-        email: "",
-        password: "",
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            setUid(user.uid);
+        }
     });
 
-    const handleChange = (name) => (e) => {
-        setvalues({ ...values, [name]: e.target.value });
+    const handleQuillChange = (value) => {
+        setText(value);
     };
-
-    const handleSignin = (e) => {
+    const handleHeadingChange = (e) => {
+        setHeadingText(e.target.value);
+    };
+    const handleSubmit = (e) => {
         e.preventDefault();
-        auth.signInWithEmailAndPassword(values.email, values.password).then(
-            () => {
+        firestore
+            .collection("users")
+            .doc(uid)
+            .collection("notes")
+            .doc()
+            .set({
+                title: headingText,
+                description: text,
+            })
+            .then(() => {
                 history.push("/");
-            }
-        );
+            })
+            .catch((err) => console.log(err));
     };
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="sm">
             <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
@@ -67,51 +78,29 @@ const SignIn = ({ history }) => {
                 </Typography>
                 <form className={classes.form} noValidate>
                     <TextField
-                        variant="standard"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Enter Title"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                        onChange={handleChange("email")}
-                        margin="normal"
-                        InputProps={{ disableUnderline: true }}
-                    />
-                    <TextareaAutosize
                         variant="outlined"
-                        margin="normal"
                         required
                         fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                        onChange={handleChange("password")}
+                        label="Enter Title"
+                        autoFocus
+                        value={headingText}
+                        onChange={handleHeadingChange}
                     />
+                    <Editor value={text} onChange={handleQuillChange} />
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        onClick={handleSignin}
+                        onClick={handleSubmit}
                     >
-                        Sign In
+                        Create Note
                     </Button>
-                    <Grid container>
-                        <Grid item xs={12}>
-                            <Link to="/signup" variant="body2">
-                                {"Don't have an account? Sign Up"}
-                            </Link>
-                        </Grid>
-                    </Grid>
                 </form>
             </div>
         </Container>
     );
 };
 
-export default withRouter(SignIn);
+export default withRouter(TakeNote);
