@@ -3,7 +3,7 @@ import { auth } from "../../firebase";
 import { withRouter } from "react-router-dom";
 import SignUpComponent from "../../components/signup";
 
-const Signup = ({ history }) => {
+const SignupContainer = ({ history }) => {
     const [values, setValues] = useState({
         name: "",
         email: "",
@@ -38,4 +38,4 @@ const Signup = ({ history }) => {
     );
 };
 
-export default withRouter(Signup);
+export default withRouter(SignupContainer);

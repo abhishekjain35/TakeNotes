@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavBarComponent from "../../components/navbar";
 import { auth } from "../../firebase";
 
-const NavBar = () => {
+const NavBarContainer = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState("");
 
-    auth.onAuthStateChanged((user) => {
+    useEffect(() => {
+        let user = auth.currentUser
         if (user) {
             setIsLoggedIn(true);
             setUsername(user.displayName);
         }
-    });
+    }, []);
 
     const handleSignOut = () => {
         auth.signOut().then(() => {
@@ -28,4 +29,4 @@ const NavBar = () => {
     );
 };
 
-export default NavBar;
+export default NavBarContainer;

@@ -3,7 +3,7 @@ import SignInComponent from "../../components/signin";
 import { withRouter } from "react-router-dom";
 import { auth } from "../../firebase";
 
-const SignIn = ({ history }) => {
+const SignInContainer = ({ history }) => {
     const [values, setValues] = useState({
         email: "",
         password: "",
@@ -30,4 +30,4 @@ const SignIn = ({ history }) => {
     );
 };
 
-export default withRouter(SignIn);
+export default withRouter(SignInContainer);

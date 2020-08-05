@@ -2,7 +2,7 @@ import React from "react";
 import SimpleCard from "./card";
 import Grid from "@material-ui/core/Grid";
 
-const Home = () => {
+const HomeComponent = ({data}) => {
     const testData = [
         {
             title: "An important card",
@@ -40,11 +40,11 @@ const Home = () => {
                 justify-xs="center"
                 spacing={5}
             >
-                {testData.map((ele, index) => (
+                {data.map((ele, index) => (
                     <Grid key={index} item xs={10} lg={3} md={5}>
                         <SimpleCard
                             title={ele.title}
-                            content={ele.content}
+                            content={ele.description}
                         ></SimpleCard>
                     </Grid>
                 ))}
@@ -53,4 +53,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default HomeComponent;

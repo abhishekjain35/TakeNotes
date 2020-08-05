@@ -1,19 +1,34 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, Switch, withRouter } from "react-router-dom";
 import "./App.css";
-import Home from "./components/home";
-import Navbar from "./containers/navbar";
-import Signup from "./containers/signup";
-import SignIn from "./containers/signin";
-import TakeNote from "./containers/notes";
+import Home from "./pages/home";
+import Signup from "./pages/signup";
+import SignIn from "./pages/signin";
+import Notes from "./pages/notes";
+import { auth } from "./firebase";
 
-function App() {
+function App({ history }) {
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        setLoading(true);
+        auth.onAuthStateChanged((user) => {
+            if (!user) {
+                history.push("/signin");
+            }
+            setLoading(false);
+        });
+    }, [history]);
+
+    if (loading) {
+        return <h1>Loading...</h1>;
+    }
+
     return (
         <div className="App">
-            <Navbar />
             <Switch>
                 <Route path="/takeanote">
-                    <TakeNote />
+                    <Notes />
                 </Route>
                 <Route path="/signin">
                     <SignIn />
@@ -29,4 +44,4 @@ function App() {
     );
 }
 
-export default App;
+export default withRouter(App);

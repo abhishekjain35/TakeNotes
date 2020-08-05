@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const useStyles = makeStyles({
   root: {
@@ -27,6 +29,8 @@ const useStyles = makeStyles({
 export default function SimpleCard({title, content}) {
   const classes = useStyles();
 
+  const [value, setValue] = useState(content);
+
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent>
@@ -34,7 +38,10 @@ export default function SimpleCard({title, content}) {
           {title}
         </Typography>
         <Typography className={classes.pos} component="p">
-          {content}
+        <ReactQuill
+            value={value}
+            readOnly={true}
+        />
         </Typography>
       </CardContent>
     </Card>
