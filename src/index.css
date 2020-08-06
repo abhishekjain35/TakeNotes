@@ -16,3 +16,8 @@ code {
 input {
     border-bottom: none !important;
 }
+
+#quill > .ql-container {
+    border: none !important;
+    font-size: initial;
+}
