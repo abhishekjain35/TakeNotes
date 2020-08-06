@@ -2,21 +2,23 @@ import React from "react";
 import SimpleCard from "./card";
 import Grid from "@material-ui/core/Grid";
 
-const HomeComponent = ({ data }) => {
+const HomeComponent = ({ data, onDelete }) => {
     return (
         <div style={{ width: "90%", margin: "auto" }}>
             <Grid
                 style={{ padding: "50px 0px" }}
                 container
-                justify="space-around"
+                justify="center"
                 justify-xs="center"
                 spacing={5}
             >
                 {data.map((ele, index) => (
                     <Grid key={index} item xs={10} lg={3} md={5}>
                         <SimpleCard
-                            title={ele.title}
-                            content={ele.description}
+                            title={ele.data.title}
+                            content={ele.data.description}
+                            onDelete={onDelete}
+                            id={ele.id}
                         ></SimpleCard>
                     </Grid>
                 ))}

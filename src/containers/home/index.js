@@ -5,7 +5,7 @@ import { firestore, auth } from "../../firebase";
 const HomeContainer = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
-    
+
     useEffect(() => {
         setLoading(true);
         let user = auth.currentUser;
@@ -18,17 +18,25 @@ const HomeContainer = () => {
                 .get()
                 .then((snapshot) => {
                     snapshot.forEach((doc) => {
-                        arr.push(doc.data());
+                        arr.push({ id: doc.id, data: doc.data() });
                     });
                     setData(arr);
                     setLoading(false);
                 });
         }
     }, []);
-
-    console.log(data);
-
-    return <>{loading ? <h1>Loading</h1> : <HomeComponent data={data} />}</>;
+    const onDelete = (id) => {
+        console.log("Delete Clicked", data);
+    };
+    return (
+        <>
+            {loading ? (
+                <h1>Loading</h1>
+            ) : (
+                <HomeComponent onDelete={onDelete} data={data} />
+            )}
+        </>
+    );
 };
 
 export default HomeContainer;
