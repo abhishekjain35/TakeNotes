@@ -19,5 +19,9 @@ input {
 
 #quill > .ql-container {
     border: none !important;
-    font-size: initial;
+    font-size: 17px;
+}
+
+.ql-editor strong{
+    font-weight:bold;
 }

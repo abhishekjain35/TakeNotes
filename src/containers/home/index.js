@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import HomeComponent from "../../components/home";
 import { firestore, auth } from "../../firebase";
+import { withRouter } from "react-router-dom";
 
-const HomeContainer = () => {
+const HomeContainer = ({ history }) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [uid, setUid] = useState("");
 
     useEffect(() => {
         setLoading(true);
@@ -21,12 +23,22 @@ const HomeContainer = () => {
                         arr.push({ id: doc.id, data: doc.data() });
                     });
                     setData(arr);
+                    setUid(user.uid);
                     setLoading(false);
                 });
         }
     }, []);
     const onDelete = (id) => {
-        console.log("Delete Clicked", data);
+        setLoading(true);
+        firestore
+            .collection("users")
+            .doc(uid)
+            .collection("notes")
+            .doc(id)
+            .delete()
+            .then(() => setLoading(false));
+
+        setData(data.filter(obj => obj.id !== id))
     };
     return (
         <>
@@ -39,4 +51,4 @@ const HomeContainer = () => {
     );
 };
 
-export default HomeContainer;
+export default withRouter(HomeContainer);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -33,7 +33,7 @@ const useStyles = makeStyles({
 export default function SimpleCard({ title, content, onDelete, id }) {
     const classes = useStyles();
 
-    const [value, setValue] = useState(content);
+    const value = content;
 
     return (
         <Card className={classes.root}>
@@ -58,7 +58,7 @@ export default function SimpleCard({ title, content, onDelete, id }) {
                         edit
                     </Button>
                     <Button
-                        onClick={onDelete(id)}
+                        onClick={() => onDelete(id)}
                         className={classes.btn}
                         variant="contained"
                         color="secondary"
