@@ -1,19 +1,36 @@
 import React, { useState, useEffect } from "react";
-import TakeNoteComponent from "../../components/notes";
+import UpdateNoteComponent from "../../components/notes/updateNote";
 import { auth, firestore } from "../../firebase";
 import { withRouter } from "react-router-dom";
 
-const TakeNote = ({ history }) => {
+const UpdateNote = ({ history, match }) => {
     const [text, setText] = useState("");
     const [headingText, setHeadingText] = useState("");
     const [uid, setUid] = useState("");
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        let mounted = true;
+        setLoading(true);
         let user = auth.currentUser;
         if (user) {
             setUid(user.uid);
         }
-    }, []);
+        firestore
+            .collection("users")
+            .doc(match.params.id)
+            .get()
+            .then((doc) => {
+                if (mounted) {
+                    setText(doc.data().description);
+                    setHeadingText(doc.data().title);
+                    setLoading(false);
+                }
+            });
+        return function cleanup() {
+            mounted = false;
+        };
+    }, [match.params.id]);
 
     const handleQuillChange = (value) => {
         setText(value);
@@ -27,11 +44,10 @@ const TakeNote = ({ history }) => {
         e.preventDefault();
         firestore
             .collection("users")
-            .doc()
-            .set({
+            .doc(match.params.id)
+            .update({
                 title: headingText,
                 description: text,
-                userId: uid,
             })
             .then(() => {
                 history.push("/");
@@ -39,8 +55,12 @@ const TakeNote = ({ history }) => {
             .catch((err) => console.log(err));
     };
 
+    if (loading) {
+        return <h1>Loading...</h1>;
+    }
+
     return (
-        <TakeNoteComponent
+        <UpdateNoteComponent
             text={text}
             handleQuillChange={handleQuillChange}
             headingText={headingText}
@@ -50,4 +70,4 @@ const TakeNote = ({ history }) => {
     );
 };
 
-export default withRouter(TakeNote);
+export default withRouter(UpdateNote);

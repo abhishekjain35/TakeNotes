@@ -23,6 +23,7 @@ const Editor = (props) => {
             style={{ height: "40vh", marginTop: "20px", fontSize: "30px" }}
             modules={modules}
             onChange={props.onChange}
+            value={props.value}
         />
     );
 };

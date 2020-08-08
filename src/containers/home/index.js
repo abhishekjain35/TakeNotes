@@ -12,22 +12,21 @@ const HomeContainer = ({ history }) => {
         setLoading(true);
         let user = auth.currentUser;
         if (user) {
+            setUid(user.uid);
             let arr = [];
             firestore
                 .collection("users")
-                .doc(user.uid)
-                .collection("notes")
+                .where("userId", "==", uid)
                 .get()
                 .then((snapshot) => {
                     snapshot.forEach((doc) => {
                         arr.push({ id: doc.id, data: doc.data() });
                     });
                     setData(arr);
-                    setUid(user.uid);
                     setLoading(false);
                 });
         }
-    }, []);
+    }, [uid]);
     const onDelete = (id) => {
         setLoading(true);
         firestore
@@ -38,7 +37,7 @@ const HomeContainer = ({ history }) => {
             .delete()
             .then(() => setLoading(false));
 
-        setData(data.filter(obj => obj.id !== id))
+        setData(data.filter((obj) => obj.id !== id));
     };
     return (
         <>

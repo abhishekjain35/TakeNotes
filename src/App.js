@@ -6,6 +6,7 @@ import Signup from "./pages/signup";
 import SignIn from "./pages/signin";
 import Notes from "./pages/notes";
 import { auth } from "./firebase";
+import UpdateANote from "./pages/updateNote";
 
 function App({ history }) {
     const [loading, setLoading] = useState(false);
@@ -29,6 +30,9 @@ function App({ history }) {
             <Switch>
                 <Route path="/takeanote">
                     <Notes />
+                </Route>
+                <Route path="/updateNote/:id">
+                    <UpdateANote />
                 </Route>
                 <Route path="/signin">
                     <SignIn />

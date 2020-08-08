@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
     root: {
@@ -27,6 +28,9 @@ const useStyles = makeStyles({
     },
     btn: {
         margin: "10px",
+    },
+    link: {
+        color: "inherit",
     },
 });
 
@@ -55,7 +59,9 @@ export default function SimpleCard({ title, content, onDelete, id }) {
                         variant="contained"
                         color="primary"
                     >
-                        edit
+                        <Link className={classes.link} to={`/updateNote/${id}`}>
+                            edit
+                        </Link>
                     </Button>
                     <Button
                         onClick={() => onDelete(id)}
