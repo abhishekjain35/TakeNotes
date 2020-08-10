@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import SignInComponent from "../../components/signin";
 import { withRouter } from "react-router-dom";
-import { auth } from "../../firebase";
+import firebase, { auth } from "../../firebase";
 
 const SignInContainer = ({ history }) => {
     const [values, setValues] = useState({
@@ -22,10 +22,17 @@ const SignInContainer = ({ history }) => {
         );
     };
 
+    const handleGoogleSignIn = useCallback(() => {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithRedirect(provider);
+        history.push("/");
+    }, [history]);
+
     return (
         <SignInComponent
             handleChange={handleChange}
             handleSignIn={handleSignIn}
+            handleGoogleSignIn={handleGoogleSignIn}
         />
     );
 };

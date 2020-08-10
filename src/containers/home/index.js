@@ -6,7 +6,7 @@ import Spinner from "../../reusable-components/spinner";
 
 const HomeContainer = ({ history }) => {
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [uid, setUid] = useState("");
 
     useEffect(() => {

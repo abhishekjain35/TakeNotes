@@ -33,7 +33,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SignInComponent = ({ handleChange, handleSignIn }) => {
+const SignInComponent = ({
+    handleChange,
+    handleSignIn,
+    handleGoogleSignIn,
+}) => {
     const classes = useStyles();
 
     return (
@@ -91,6 +95,7 @@ const SignInComponent = ({ handleChange, handleSignIn }) => {
                         fullWidth
                         className={classes.submit}
                         startIcon={<GoogleIcon />}
+                        onClick={handleGoogleSignIn}
                     >
                         Sign in with Google
                     </Button>
