@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import HomeComponent from "../../components/home";
 import { firestore, auth } from "../../firebase";
 import { withRouter } from "react-router-dom";
+import Spinner from "../../reusable-components/spinner";
 
 const HomeContainer = ({ history }) => {
     const [data, setData] = useState([]);
@@ -42,7 +43,7 @@ const HomeContainer = ({ history }) => {
     return (
         <>
             {loading ? (
-                <h1>Loading</h1>
+                <Spinner />
             ) : (
                 <HomeComponent onDelete={onDelete} data={data} />
             )}

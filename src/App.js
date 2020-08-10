@@ -7,6 +7,7 @@ import SignIn from "./pages/signin";
 import Notes from "./pages/notes";
 import { auth } from "./firebase";
 import UpdateANote from "./pages/updateNote";
+import Spinner from "./reusable-components/spinner";
 
 function App({ history }) {
     const [loading, setLoading] = useState(false);
@@ -22,7 +23,7 @@ function App({ history }) {
     }, [history]);
 
     if (loading) {
-        return <h1>Loading...</h1>;
+        return <Spinner />;
     }
 
     return (

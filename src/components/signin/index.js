@@ -7,6 +7,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import GoogleIcon from "./googleIcon";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -83,6 +84,15 @@ const SignInComponent = ({ handleChange, handleSignIn }) => {
                         onClick={handleSignIn}
                     >
                         Sign In
+                    </Button>
+                    <Button
+                        variant="contained"
+                        style={{ color: "#000", backgroundColor: "#fff" }}
+                        fullWidth
+                        className={classes.submit}
+                        startIcon={<GoogleIcon />}
+                    >
+                        Sign in with Google
                     </Button>
                     <Grid container>
                         <Grid item xs={12}>

@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from "react";
 import UpdateNoteComponent from "../../components/notes/updateNote";
-import { auth, firestore } from "../../firebase";
+import { firestore } from "../../firebase";
 import { withRouter } from "react-router-dom";
+import Spinner from "../../reusable-components/spinner";
 
 const UpdateNote = ({ history, match }) => {
     const [text, setText] = useState("");
     const [headingText, setHeadingText] = useState("");
-    const [uid, setUid] = useState("");
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         let mounted = true;
         setLoading(true);
-        let user = auth.currentUser;
-        if (user) {
-            setUid(user.uid);
-        }
         firestore
             .collection("users")
             .doc(match.params.id)
@@ -55,18 +51,20 @@ const UpdateNote = ({ history, match }) => {
             .catch((err) => console.log(err));
     };
 
-    if (loading) {
-        return <h1>Loading...</h1>;
-    }
-
     return (
-        <UpdateNoteComponent
-            text={text}
-            handleQuillChange={handleQuillChange}
-            headingText={headingText}
-            handleHeadingChange={handleHeadingChange}
-            handleSubmit={handleSubmit}
-        />
+        <>
+            {loading ? (
+                <Spinner />
+            ) : (
+                <UpdateNoteComponent
+                    text={text}
+                    handleQuillChange={handleQuillChange}
+                    headingText={headingText}
+                    handleHeadingChange={handleHeadingChange}
+                    handleSubmit={handleSubmit}
+                />
+            )}
+        </>
     );
 };
 
