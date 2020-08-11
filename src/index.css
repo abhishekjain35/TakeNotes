@@ -25,3 +25,9 @@ input {
 .ql-editor strong {
     font-weight: bold;
 }
+
+.reactQuill {
+    height: 40vh;
+    margin-top: 20px;
+    font-size: 30px;
+}

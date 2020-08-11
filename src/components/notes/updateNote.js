@@ -7,7 +7,9 @@ import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Editor from "./editor";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import "../../index.css";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -58,7 +60,7 @@ const UpdateNoteComponent = ({
                         value={headingText}
                         onChange={handleHeadingChange}
                     />
-                    <Editor value={text} onChange={handleQuillChange} />
+                    <ReactQuill value={text} onChange={handleQuillChange} />
                     <Button
                         type="submit"
                         fullWidth

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { auth } from "../../firebase";
 import { withRouter } from "react-router-dom";
 import SignUpComponent from "../../components/signup";
+import firebase from "../../firebase";
 
 const SignupContainer = ({ history }) => {
     const [values, setValues] = useState({
@@ -25,15 +26,22 @@ const SignupContainer = ({ history }) => {
                         displayName: name,
                     })
                     .then(() => {
-                        history.push("/")
+                        history.push("/");
                     });
             });
     };
-    
+
+    const handleGoogleSignIn = useCallback(() => {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithRedirect(provider);
+        history.push("/");
+    }, [history]);
+
     return (
         <SignUpComponent
             handleChange={handleChange}
             handleSubmit={handleSubmit}
+            handleGoogleSignIn={handleGoogleSignIn}
         />
     );
 };

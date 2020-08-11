@@ -13,7 +13,7 @@ const HomeComponent = ({ data, onDelete }) => {
                 spacing={5}
             >
                 {data.map((ele, index) => (
-                    <Grid key={index} item xs={10} lg={4} md={5}>
+                    <Grid key={index} item xs={11} lg={4} md={5}>
                         <SimpleCard
                             title={ele.data.title}
                             content={ele.data.description}

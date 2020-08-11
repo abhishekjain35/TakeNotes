@@ -7,7 +7,10 @@ import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Editor from "./editor";
+// import Editor from "./editor";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import "../../index.css";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -35,6 +38,8 @@ const TakeNoteComponent = ({
     handleQuillChange,
     handleHeadingChange,
     handleSubmit,
+    quill,
+    modules,
 }) => {
     const classes = useStyles();
 
@@ -58,7 +63,13 @@ const TakeNoteComponent = ({
                         value={headingText}
                         onChange={handleHeadingChange}
                     />
-                    <Editor value={text} onChange={handleQuillChange} />
+                    <ReactQuill
+                        placeholder="Take a note"
+                        className="reactQuill"
+                        value={text}
+                        onChange={handleQuillChange}
+                        modules={modules}
+                    />
                     <Button
                         type="submit"
                         fullWidth

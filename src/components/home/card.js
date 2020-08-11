@@ -14,8 +14,8 @@ const useStyles = makeStyles({
         borderRadius: "10px",
     },
     title: {
-        padding: "15px 0",
-        borderBottom: "1px solid grey",
+        padding: "10px 0 0 0",
+        // borderBottom: "1px solid grey",
     },
     pos: {
         // marginBottom: 12,

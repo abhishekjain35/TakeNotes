@@ -9,6 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
+import GoogleIcon from "../../reusable-components/googleIcon";
+import Separator from "../../reusable-components/separator";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -28,9 +30,30 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    container: {
+        width: "100%",
+        margin: "20px 0",
+    },
+    flexdiv: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    line: {
+        width: "80%",
+    },
+    separator: {
+        margin: "0 10px",
+        transform: "translateY(-3px)",
+        minWidth: "15px",
+    },
 }));
 
-const SignUpComponent = ({handleChange, handleSubmit}) => {
+const SignUpComponent = ({
+    handleChange,
+    handleSubmit,
+    handleGoogleSignIn,
+}) => {
     const classes = useStyles();
 
     return (
@@ -93,6 +116,17 @@ const SignUpComponent = ({handleChange, handleSubmit}) => {
                         onClick={handleSubmit}
                     >
                         Sign Up
+                    </Button>
+                    <Separator />
+                    <Button
+                        variant="contained"
+                        style={{ color: "#000", backgroundColor: "#fff" }}
+                        fullWidth
+                        className={classes.submit}
+                        startIcon={<GoogleIcon />}
+                        onClick={handleGoogleSignIn}
+                    >
+                        Sign up with Google
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>

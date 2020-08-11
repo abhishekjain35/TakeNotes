@@ -23,6 +23,23 @@ const TakeNote = ({ history }) => {
         setHeadingText(e.target.value);
     };
 
+    const modules = {
+        toolbar: {
+            container: [
+                [{ header: [2, 3, false] }],
+                ["bold", "italic", "underline", "strike", "blockquote"],
+                [
+                    { list: "ordered" },
+                    { list: "bullet" },
+                    { indent: "-1" },
+                    { indent: "+1" },
+                ],
+                ["code"],
+                ["clean"],
+            ],
+        },
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         firestore
@@ -46,6 +63,7 @@ const TakeNote = ({ history }) => {
             headingText={headingText}
             handleHeadingChange={handleHeadingChange}
             handleSubmit={handleSubmit}
+            modules={modules}
         />
     );
 };
