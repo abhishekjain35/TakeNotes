@@ -60,7 +60,11 @@ const UpdateNoteComponent = ({
                         value={headingText}
                         onChange={handleHeadingChange}
                     />
-                    <ReactQuill value={text} onChange={handleQuillChange} />
+                    <ReactQuill
+                        className="reactQuill"
+                        value={text}
+                        onChange={handleQuillChange}
+                    />
                     <Button
                         type="submit"
                         fullWidth

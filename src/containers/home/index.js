@@ -23,7 +23,9 @@ const HomeContainer = ({ history }) => {
                     snapshot.forEach((doc) => {
                         arr.push({ id: doc.id, data: doc.data() });
                     });
-                    setData(arr);
+                    setData(
+                        arr.sort((a, b) => b.data.timestamp - a.data.timestamp)
+                    );
                     setLoading(false);
                 });
         }

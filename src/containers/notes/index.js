@@ -49,6 +49,7 @@ const TakeNote = ({ history }) => {
                 title: headingText,
                 description: text,
                 userId: uid,
+                timestamp: Date.now(),
             })
             .then(() => {
                 history.push("/");

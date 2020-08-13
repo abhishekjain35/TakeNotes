@@ -44,6 +44,7 @@ const UpdateNote = ({ history, match }) => {
             .update({
                 title: headingText,
                 description: text,
+                timestamp: Date.now(),
             })
             .then(() => {
                 history.push("/");

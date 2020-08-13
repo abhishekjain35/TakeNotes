@@ -40,7 +40,7 @@ export default function SimpleCard({ title, content, onDelete, id }) {
     const value = content;
 
     return (
-        <Card className={classes.root}>
+        <Card className={classes.root} variant="outlined">
             <CardContent>
                 <Typography variant="h4" className={classes.title} gutterBottom>
                     {title}
