@@ -3,35 +3,35 @@ import styled from "@emotion/styled";
 
 const Separator = () => {
     return (
-        <container>
-            <flexdiv>
-                <hrtag />
-                <separator>or</separator>
-                <hrtag />
-            </flexdiv>
-        </container>
+        <Container>
+            <Flexdiv>
+                <Hr />
+                <Text>or</Text>
+                <Hr />
+            </Flexdiv>
+        </Container>
     );
 };
 
-const container = styled.div`
+const Container = styled.div`
     width: 100%;
     margin: 20px 0;
 `;
 
-const flexdiv = styled.div`
+const Flexdiv = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
 `;
 
-const hrtag = styled.hr`
+const Hr = styled.hr`
     width: 80%;
 `;
 
-const separator = styled.div`
+const Text = styled.div`
     margin: 0 10px;
     transform: translateY(-3px);
-    min-width: 32px;
+    min-width: 20px;
 `;
 
 export default Separator;
