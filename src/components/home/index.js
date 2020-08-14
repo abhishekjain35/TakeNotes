@@ -2,7 +2,14 @@ import React from "react";
 import SimpleCard from "./card";
 import Grid from "@material-ui/core/Grid";
 
-const HomeComponent = ({ data, onDelete }) => {
+const HomeComponent = ({
+    data,
+    onDelete,
+    open,
+    handleClick,
+    handleClose,
+    anchorEl,
+}) => {
     return (
         <div style={{ width: "90%", margin: "auto" }}>
             <Grid
@@ -19,6 +26,10 @@ const HomeComponent = ({ data, onDelete }) => {
                             content={ele.data.description}
                             onDelete={onDelete}
                             id={ele.id}
+                            open={open}
+                            handleClick={handleClick}
+                            handleClose={handleClose}
+                            anchorEl={anchorEl}
                         ></SimpleCard>
                     </Grid>
                 ))}

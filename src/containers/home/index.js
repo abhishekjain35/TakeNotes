@@ -8,6 +8,16 @@ const HomeContainer = ({ history }) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [uid, setUid] = useState("");
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     useEffect(() => {
         setLoading(true);
@@ -46,7 +56,14 @@ const HomeContainer = ({ history }) => {
             {loading ? (
                 <Spinner />
             ) : (
-                <HomeComponent onDelete={onDelete} data={data} />
+                <HomeComponent
+                    open={open}
+                    handleClick={handleClick}
+                    handleClose={handleClose}
+                    onDelete={onDelete}
+                    data={data}
+                    anchorEl={anchorEl}
+                />
             )}
         </>
     );

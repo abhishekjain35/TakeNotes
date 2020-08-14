@@ -34,18 +34,19 @@ const useStyles = makeStyles({
     },
 });
 
-export default function SimpleCard({ title, content, onDelete, id }) {
+export default function SimpleCard({
+    title,
+    content,
+    onDelete,
+    id,
+    handleClick,
+    handleClose,
+    anchorEl,
+    open,
+}) {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
-
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    // const [anchorEl, setAnchorEl] = useState(null);
+    // const open = Boolean(anchorEl);
 
     const value = content;
 

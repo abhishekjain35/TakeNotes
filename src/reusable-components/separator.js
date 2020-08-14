@@ -4,11 +4,11 @@ import styled from "@emotion/styled";
 const Separator = () => {
     return (
         <Container>
-            <Flexdiv>
+            <FlexDiv>
                 <Hr />
                 <Text>or</Text>
                 <Hr />
-            </Flexdiv>
+            </FlexDiv>
         </Container>
     );
 };
@@ -18,7 +18,7 @@ const Container = styled.div`
     margin: 20px 0;
 `;
 
-const Flexdiv = styled.div`
+const FlexDiv = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,7 +31,6 @@ const Hr = styled.hr`
 const Text = styled.div`
     margin: 0 10px;
     transform: translateY(-3px);
-    min-width: 20px;
 `;
 
 export default Separator;

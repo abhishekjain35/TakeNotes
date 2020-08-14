@@ -3,8 +3,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import GoogleIcon from "../../reusable-components/googleIcon";
@@ -12,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Link, withRouter } from "react-router-dom";
+import Separator from "../../reusable-components/separator";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -75,10 +74,6 @@ const SignInComponent = ({
                         autoComplete="current-password"
                         onChange={handleChange("password")}
                     />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                    />
                     <Button
                         type="submit"
                         fullWidth
@@ -89,6 +84,7 @@ const SignInComponent = ({
                     >
                         Log in
                     </Button>
+                    <Separator />
                     <Button
                         variant="contained"
                         style={{ color: "#000", backgroundColor: "#fff" }}
@@ -99,8 +95,8 @@ const SignInComponent = ({
                     >
                         Sign in with Google
                     </Button>
-                    <Grid container>
-                        <Grid item xs={12}>
+                    <Grid container justify="flex-end">
+                        <Grid item>
                             <Link to="/signup" variant="body2">
                                 {"Don't have an account? Sign Up"}
                             </Link>
