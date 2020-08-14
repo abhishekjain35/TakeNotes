@@ -43,7 +43,7 @@ const TakeNote = ({ history }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         firestore
-            .collection("users")
+            .collection("notes")
             .doc()
             .set({
                 title: headingText,

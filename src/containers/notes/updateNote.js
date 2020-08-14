@@ -13,7 +13,7 @@ const UpdateNote = ({ history, match }) => {
         let mounted = true;
         setLoading(true);
         firestore
-            .collection("users")
+            .collection("notes")
             .doc(match.params.id)
             .get()
             .then((doc) => {
@@ -39,7 +39,7 @@ const UpdateNote = ({ history, match }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         firestore
-            .collection("users")
+            .collection("notes")
             .doc(match.params.id)
             .update({
                 title: headingText,

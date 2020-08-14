@@ -16,7 +16,7 @@ const HomeContainer = ({ history }) => {
             setUid(user.uid);
             let arr = [];
             firestore
-                .collection("users")
+                .collection("notes")
                 .where("userId", "==", uid)
                 .get()
                 .then((snapshot) => {
@@ -33,12 +33,11 @@ const HomeContainer = ({ history }) => {
     const onDelete = (id) => {
         setLoading(true);
         firestore
-            .collection("users")
-            .doc(uid)
             .collection("notes")
             .doc(id)
             .delete()
-            .then(() => setLoading(false));
+            .then(() => setLoading(false))
+            .catch((err) => console.log(err));
 
         setData(data.filter((obj) => obj.id !== id));
     };
