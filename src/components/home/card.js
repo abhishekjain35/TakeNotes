@@ -7,9 +7,6 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Link } from "react-router-dom";
@@ -31,9 +28,6 @@ const useStyles = makeStyles({
         width: "100%",
         display: "flex",
         justifyContent: "space-between",
-    },
-    btn: {
-        margin: "10px",
     },
     link: {
         color: "inherit",
@@ -93,35 +87,18 @@ export default function SimpleCard({ title, content, onDelete, id }) {
                     PaperProps={{
                         style: {
                             maxHeight: 48 * 4.5,
-                            width: "20ch",
+                            width: "15ch",
                         },
                     }}
                 >
-                    <MenuItem onClick={handleClose}>
-                        <Link className={classes.link} to={`/updateNote/${id}`}>
-                            <Button
-                                className={classes.btn}
-                                variant="contained"
-                                color="primary"
-                                fullWidth
-                                startIcon={<EditIcon />}
-                            >
-                                edit
-                            </Button>
-                        </Link>
-                    </MenuItem>
-                    <MenuItem onClick={handleClose}>
-                        <Button
-                            onClick={() => onDelete(id)}
-                            className={classes.btn}
-                            variant="contained"
-                            color="secondary"
-                            fullWidth
-                            startIcon={<DeleteIcon />}
-                        >
-                            delete
-                        </Button>
-                    </MenuItem>
+                    <Link className={classes.link} to={`/updateNote/${id}`}>
+                        <MenuItem onClick={handleClose}>
+                            <div>Edit</div>
+                        </MenuItem>
+                    </Link>
+                    <div onClick={() => onDelete(id)}>
+                        <MenuItem onClick={handleClose}>Delete</MenuItem>
+                    </div>
                 </Menu>
             </CardContent>
         </Card>
