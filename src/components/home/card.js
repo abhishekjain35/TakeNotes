@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -18,10 +18,8 @@ const useStyles = makeStyles({
     },
     title: {
         padding: "10px 0 0 0",
-        // borderBottom: "1px solid grey",
     },
     pos: {
-        // marginBottom: 12,
         opacity: 0.8,
     },
     operations: {
@@ -31,6 +29,11 @@ const useStyles = makeStyles({
     },
     link: {
         color: "inherit",
+    },
+    verticalIcon: {
+        "&:focus": {
+            backgroundColor: "transparent",
+        },
     },
 });
 
@@ -45,8 +48,6 @@ export default function SimpleCard({
     open,
 }) {
     const classes = useStyles();
-    // const [anchorEl, setAnchorEl] = useState(null);
-    // const open = Boolean(anchorEl);
 
     const value = content;
 
@@ -67,6 +68,7 @@ export default function SimpleCard({
                         aria-controls="long-menu"
                         aria-haspopup="true"
                         onClick={handleClick}
+                        className={classes.verticalIcon}
                     >
                         <MoreVertIcon />
                     </IconButton>
