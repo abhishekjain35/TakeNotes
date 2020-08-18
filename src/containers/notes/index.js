@@ -35,7 +35,6 @@ const TakeNote = ({ history }) => {
                     { indent: "+1" },
                 ],
                 ["code"],
-                ["clean"],
             ],
         },
     };
