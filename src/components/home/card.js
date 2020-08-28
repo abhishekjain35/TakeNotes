@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -37,16 +37,18 @@ const useStyles = makeStyles({
     },
 });
 
-export default function SimpleCard({
-    title,
-    content,
-    onDelete,
-    id,
-    handleClick,
-    handleClose,
-    anchorEl,
-    open,
-}) {
+export default function SimpleCard({ title, content, onDelete, id }) {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
     const classes = useStyles();
 
     const value = content;

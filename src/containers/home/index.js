@@ -1,23 +1,12 @@
 import React, { useState, useEffect } from "react";
 import HomeComponent from "../../components/home";
 import { firestore, auth } from "../../firebase";
-import { withRouter } from "react-router-dom";
 import Spinner from "../../reusable-components/spinner";
 
-const HomeContainer = ({ history }) => {
+const HomeContainer = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [uid, setUid] = useState("");
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
-
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
 
     useEffect(() => {
         setLoading(true);
@@ -56,17 +45,10 @@ const HomeContainer = ({ history }) => {
             {loading ? (
                 <Spinner />
             ) : (
-                <HomeComponent
-                    open={open}
-                    handleClick={handleClick}
-                    handleClose={handleClose}
-                    onDelete={onDelete}
-                    data={data}
-                    anchorEl={anchorEl}
-                />
+                <HomeComponent onDelete={onDelete} data={data} />
             )}
         </>
     );
 };
 
-export default withRouter(HomeContainer);
+export default HomeContainer;
