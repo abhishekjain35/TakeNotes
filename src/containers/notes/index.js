@@ -16,7 +16,7 @@ const TakeNote = ({ history }) => {
         setHeadingText(e.target.value);
     };
 
-    const handleSnackBarClose = (event, reason) => {
+    const handleSnackBarClose = () => {
         setErrorMessage("");
     };
 
@@ -38,7 +38,7 @@ const TakeNote = ({ history }) => {
             .then(() => {
                 history.push("/");
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log("ERROR: ", err));
     };
 
     return (
