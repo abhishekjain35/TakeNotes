@@ -10,6 +10,8 @@ import Container from "@material-ui/core/Container";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../../index.css";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -17,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        [theme.breakpoints.down("sm")]: {
+            marginTop: theme.spacing(0),
+        },
     },
     avatar: {
         margin: theme.spacing(1),
@@ -28,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(10, 0, 2),
+        [theme.breakpoints.down("sm")]: {
+            marginTop: theme.spacing(2),
+        },
     },
 }));
 
@@ -37,10 +45,30 @@ const TakeNoteComponent = ({
     handleQuillChange,
     handleHeadingChange,
     handleSubmit,
-    quill,
-    modules,
+    errorMessage,
+    handleSnackBarClose,
 }) => {
     const classes = useStyles();
+
+    const modules = {
+        toolbar: {
+            container: [
+                [{ header: [2, 3, false] }],
+                ["bold", "italic", "underline", "strike", "blockquote"],
+                [
+                    { list: "ordered" },
+                    { list: "bullet" },
+                    { indent: "-1" },
+                    { indent: "+1" },
+                ],
+                ["code"],
+            ],
+        },
+    };
+
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
 
     return (
         <Container component="main" maxWidth="sm">
@@ -79,6 +107,15 @@ const TakeNoteComponent = ({
                     >
                         Create Note
                     </Button>
+                    <Snackbar
+                        open={errorMessage ? true : false}
+                        autoHideDuration={6000}
+                        onClose={handleSnackBarClose}
+                    >
+                        <Alert onClose={handleSnackBarClose} severity="error">
+                            {errorMessage}
+                        </Alert>
+                    </Snackbar>
                 </form>
             </div>
         </Container>

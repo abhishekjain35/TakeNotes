@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import TakeNoteComponent from "../../components/notes";
 import { auth, firestore } from "../../firebase";
 import { withRouter } from "react-router-dom";
@@ -6,14 +6,7 @@ import { withRouter } from "react-router-dom";
 const TakeNote = ({ history }) => {
     const [text, setText] = useState("");
     const [headingText, setHeadingText] = useState("");
-    const [uid, setUid] = useState("");
-
-    useEffect(() => {
-        let user = auth.currentUser;
-        if (user) {
-            setUid(user.uid);
-        }
-    }, []);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleQuillChange = (value) => {
         setText(value);
@@ -23,31 +16,23 @@ const TakeNote = ({ history }) => {
         setHeadingText(e.target.value);
     };
 
-    const modules = {
-        toolbar: {
-            container: [
-                [{ header: [2, 3, false] }],
-                ["bold", "italic", "underline", "strike", "blockquote"],
-                [
-                    { list: "ordered" },
-                    { list: "bullet" },
-                    { indent: "-1" },
-                    { indent: "+1" },
-                ],
-                ["code"],
-            ],
-        },
+    const handleSnackBarClose = (event, reason) => {
+        setErrorMessage("");
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!headingText || !text) {
+            setErrorMessage("Please, fill out all the fields");
+            return;
+        }
         firestore
             .collection("notes")
             .doc()
             .set({
                 title: headingText,
                 description: text,
-                userId: uid,
+                userId: auth.currentUser.uid,
                 timestamp: Date.now(),
             })
             .then(() => {
@@ -59,11 +44,12 @@ const TakeNote = ({ history }) => {
     return (
         <TakeNoteComponent
             text={text}
-            handleQuillChange={handleQuillChange}
             headingText={headingText}
+            handleQuillChange={handleQuillChange}
             handleHeadingChange={handleHeadingChange}
             handleSubmit={handleSubmit}
-            modules={modules}
+            errorMessage={errorMessage}
+            handleSnackBarClose={handleSnackBarClose}
         />
     );
 };

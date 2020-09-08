@@ -31,8 +31,10 @@ input:focus {
     font-weight: bold;
 }
 
-.reactQuill {
+.reactQuill > .ql-container {
     height: 40vh;
+}
+.reactQuill {
     margin-top: 20px;
     font-size: 30px;
 }
