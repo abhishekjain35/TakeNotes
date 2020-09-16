@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 import Home from "./pages/home";
 import Signup from "./pages/signup";
 import SignIn from "./pages/signin";
@@ -7,6 +7,7 @@ import Notes from "./pages/notes";
 import { auth } from "./firebase";
 import UpdateANote from "./pages/updateNote";
 import Spinner from "./reusable-components/spinner";
+import NotFound from "./pages/not-found";
 
 function App({ history }) {
     const [loading, setLoading] = useState(false);
@@ -28,21 +29,25 @@ function App({ history }) {
     return (
         <div className="App">
             <Switch>
-                <Route path="/takeanote">
+                <Route exact path="/takeanote">
                     <Notes />
                 </Route>
-                <Route path="/updateNote/:id">
+                <Route exact path="/updateNote/:id">
                     <UpdateANote />
                 </Route>
-                <Route path="/signin">
+                <Route exact path="/signin">
                     <SignIn />
                 </Route>
-                <Route path="/signup">
+                <Route exact path="/signup">
                     <Signup />
                 </Route>
-                <Route path="/">
+                <Route exact path="/">
                     <Home />
                 </Route>
+                <Route path="/not-found">
+                    <NotFound />
+                </Route>
+                <Redirect to="/not-found" />
             </Switch>
         </div>
     );
