@@ -39,14 +39,6 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "center",
         alignItems: "center",
     },
-    line: {
-        width: "80%",
-    },
-    separator: {
-        margin: "0 10px",
-        transform: "translateY(-3px)",
-        minWidth: "15px",
-    },
 }));
 
 const SignUpComponent = ({
@@ -130,7 +122,7 @@ const SignUpComponent = ({
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link to="/signin">
+                            <Link style={{ color: "#035B87" }} to="/signin">
                                 Already have an account? Sign in
                             </Link>
                         </Grid>
