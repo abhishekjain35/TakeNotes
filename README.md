@@ -1,4 +1,4 @@
-Hey there 👋, visit this web-app(PWA) at [Take Notes](https://abhishekdev.tech/)
+Hey there 👋, visit this web-app(PWA) at [Take Notes](https://takenotes1.netlify.app/)
 
 ## How to run locally
 
