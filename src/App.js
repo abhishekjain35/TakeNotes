@@ -4,7 +4,7 @@ import Home from "./pages/home";
 import Signup from "./pages/signup";
 import SignIn from "./pages/signin";
 import Notes from "./pages/notes";
-import { auth } from "./firebase";
+import { firestore, auth } from "./firebase";
 import UpdateANote from "./pages/updateNote";
 import Spinner from "./reusable-components/spinner";
 import NotFound from "./pages/not-found";
@@ -17,8 +17,11 @@ function App({ history }) {
         auth.onAuthStateChanged((user) => {
             if (!user) {
                 history.push("/signin");
+                setLoading(false);
+                return;
             }
             setLoading(false);
+            firestore.enablePersistence().catch((err) => console.log(err));
         });
     }, [history]);
 
