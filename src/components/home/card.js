@@ -96,7 +96,16 @@ export default function SimpleCard({ title, content, onDelete, id }) {
                         },
                     }}
                 >
-                    <Link className={classes.link} to={`/updateNote/${id}`}>
+                    <Link
+                        className={classes.link}
+                        to={{
+                            pathname: `/updateNote/${id}`,
+                            state: {
+                                title: title,
+                                content: content,
+                            },
+                        }}
+                    >
                         <MenuItem onClick={handleClose}>
                             <div>Edit</div>
                         </MenuItem>

@@ -1,32 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import UpdateNoteComponent from "../../components/notes/updateNote";
 import { firestore } from "../../firebase";
-import { withRouter } from "react-router-dom";
-import Spinner from "../../reusable-components/spinner";
+import { useLocation, useParams, useHistory } from "react-router-dom";
 
-const UpdateNote = ({ history, match }) => {
-    const [text, setText] = useState("");
-    const [headingText, setHeadingText] = useState("");
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        let mounted = true;
-        setLoading(true);
-        firestore
-            .collection("notes")
-            .doc(match.params.id)
-            .get()
-            .then((doc) => {
-                if (mounted) {
-                    setText(doc.data().description);
-                    setHeadingText(doc.data().title);
-                    setLoading(false);
-                }
-            });
-        return function cleanup() {
-            mounted = false;
-        };
-    }, [match.params.id]);
+const UpdateNote = () => {
+    const {id} = useParams();
+    const history = useHistory()
+    const location = useLocation()
+    const [text, setText] = useState(location.state.content);
+    const [headingText, setHeadingText] = useState(location.state.title);
 
     const handleQuillChange = (value) => {
         setText(value);
@@ -35,38 +17,32 @@ const UpdateNote = ({ history, match }) => {
     const handleHeadingChange = (e) => {
         setHeadingText(e.target.value);
     };
-
+    console.log(location)
     const handleSubmit = (e) => {
         e.preventDefault();
         firestore
             .collection("notes")
-            .doc(match.params.id)
+            .doc(id)
             .update({
                 title: headingText,
                 description: text,
                 timestamp: Date.now(),
             })
             .then(() => {
-                history.push("/");
+                history.push("/")
             })
             .catch((err) => console.log(err));
     };
 
     return (
-        <>
-            {loading ? (
-                <Spinner />
-            ) : (
-                <UpdateNoteComponent
-                    text={text}
-                    handleQuillChange={handleQuillChange}
-                    headingText={headingText}
-                    handleHeadingChange={handleHeadingChange}
-                    handleSubmit={handleSubmit}
-                />
-            )}
-        </>
+        <UpdateNoteComponent
+            text={text}
+            handleQuillChange={handleQuillChange}
+            headingText={headingText}
+            handleHeadingChange={handleHeadingChange}
+            handleSubmit={handleSubmit}
+        />
     );
 };
 
-export default withRouter(UpdateNote);
+export default UpdateNote;
