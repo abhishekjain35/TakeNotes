@@ -17,7 +17,6 @@ const UpdateNote = () => {
     const handleHeadingChange = (e) => {
         setHeadingText(e.target.value);
     };
-    console.log(location)
     const handleSubmit = (e) => {
         e.preventDefault();
         firestore

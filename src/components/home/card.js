@@ -37,7 +37,14 @@ const useStyles = makeStyles({
     },
 });
 
-export default function SimpleCard({ title, content, onDelete, id }) {
+export default function SimpleCard({
+    title,
+    content,
+    onDelete,
+    id,
+    handlePin,
+    pinned
+}) {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -50,8 +57,6 @@ export default function SimpleCard({ title, content, onDelete, id }) {
     };
 
     const classes = useStyles();
-
-    const value = content;
 
     return (
         <Card className={classes.root} variant="outlined">
@@ -77,7 +82,7 @@ export default function SimpleCard({ title, content, onDelete, id }) {
                 </div>
                 <div className={classes.pos}>
                     <ReactQuill
-                        value={value}
+                        value={content}
                         readOnly={true}
                         modules={{ toolbar: false }}
                         id="quill"
@@ -110,9 +115,18 @@ export default function SimpleCard({ title, content, onDelete, id }) {
                             <div>Edit</div>
                         </MenuItem>
                     </Link>
-                    <div onClick={() => onDelete(id)}>
+                    <div onClick={() => onDelete(id, pinned ? true : false)}>
                         <MenuItem onClick={handleClose}>Delete</MenuItem>
                     </div>
+                    {pinned ? (
+                        <div onClick={() => handlePin(id, true)}>
+                            <MenuItem onClick={handleClose}>Unpin</MenuItem>
+                        </div>
+                    ) : (
+                        <div onClick={() => handlePin(id, false)}>
+                            <MenuItem onClick={handleClose}>Pin</MenuItem>
+                        </div>
+                    )}
                 </Menu>
             </CardContent>
         </Card>
