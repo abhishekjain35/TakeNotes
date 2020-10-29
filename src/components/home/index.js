@@ -33,7 +33,7 @@ const HomeComponent = ({ data, onDelete, handlePin }) => {
             )}
             {hasPinnedItems && <h4 style={{ textAlign: "center" }}>OTHERS</h4>}
             <Grid
-                style={{ padding: "50px 0px" }}
+                style={{ padding: "10px 0 50px 0" }}
                 container
                 justify="center"
                 justify-xs="center"
