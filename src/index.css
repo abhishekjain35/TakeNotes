@@ -1,40 +1,41 @@
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-        monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 input {
-    border-bottom: none !important;
-    padding: 5px 0 5px 10px !important;
-    margin: 0% !important;
+  border-bottom: none !important;
+  padding: 5px 0 5px 10px !important;
+  margin: 0% !important;
 }
 
 input:focus {
-    border-bottom: none !important;
+  border-bottom: none !important;
 }
 
 #quill > .ql-container {
-    border: none !important;
-    font-size: 17px;
+  border: none !important;
+  font-size: 17px;
 }
 
 .ql-editor strong {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .reactQuill > .ql-container {
-    height: 40vh;
+  height: 40vh;
 }
 .reactQuill {
-    margin-top: 20px;
-    font-size: 30px;
+  margin-top: 20px;
+  font-size: 30px;
 }

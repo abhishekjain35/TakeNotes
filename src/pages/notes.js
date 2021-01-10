@@ -5,7 +5,7 @@ import NavBar from "../containers/navbar";
 const Notes = () => {
     return (
         <>
-            <NavBar />
+            {/* <NavBar /> */}
             <NavBarContainer />
         </>
     );

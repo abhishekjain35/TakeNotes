@@ -1,0 +1,36 @@
+.searchContainer {
+  display: flex;
+  /* flex: 1 1 300px;
+  position: relative; */
+  border: 1px solid #ccc;
+  width: 500px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 20px auto;
+}
+
+.searchIcon {
+  /* padding: 0.5rem; */
+  margin: auto 10px;
+}
+
+.MicIcon {
+  margin: auto 5px;
+  cursor: pointer;
+}
+
+.searchBox {
+  border: 0;
+  padding: 0.5rem 0.5rem 0.5rem 0;
+  flex: 1;
+  padding: 0 !important;
+}
+
+.searchButton {
+  background: #538ac5;
+  border: 0;
+  color: white;
+  padding: 0.5rem !important;
+  border-radius: 0;
+  cursor: pointer;
+}

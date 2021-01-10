@@ -5,7 +5,7 @@ import NavBar from "../containers/navbar";
 const SignIn = () => {
     return (
         <>
-            <NavBar />
+            {/* <NavBar /> */}
             <SignInContainer />
         </>
     );

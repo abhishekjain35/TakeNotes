@@ -5,7 +5,7 @@ import NavBar from "../containers/navbar";
 const NotFound = () => {
     return (
         <>
-            <NavBar />
+            {/* <NavBar /> */}
             <NotFoundComponent />
         </>
     );

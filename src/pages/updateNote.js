@@ -5,7 +5,7 @@ import UpdateNote from "../containers/notes/updateNote";
 const UpdateANote = () => {
     return (
         <>
-            <NavBar />
+            {/* <NavBar /> */}
             <UpdateNote />
         </>
     );

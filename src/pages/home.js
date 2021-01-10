@@ -5,7 +5,6 @@ import NavBar from "../containers/navbar";
 const Home = () => {
     return (
         <>
-            <NavBar />
             <HomeContainer />
         </>
     );
