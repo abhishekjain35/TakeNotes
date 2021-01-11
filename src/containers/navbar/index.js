@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import NavBarComponent from "../../components/navbar";
 import { auth } from "../../firebase";
+import {useHistory} from "react-router-dom"
 
 const NavBarContainer = () => {
+    const history = useHistory()
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState("");
 
@@ -17,6 +19,7 @@ const NavBarContainer = () => {
     const handleSignOut = () => {
         auth.signOut().then(() => {
             setIsLoggedIn(false);
+            history.push('/signin')
         });
     };
 
