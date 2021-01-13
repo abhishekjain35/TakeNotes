@@ -9,7 +9,7 @@ const HomeContainer = () => {
   const [combinedData, setCombinedData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [searchResults, setSearchResults] = useState([])
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -118,7 +118,7 @@ const HomeContainer = () => {
         }
         return text.includes(searchText);
       });
-      setSearchResults(res)
+      setSearchResults(res);
     }
   }, [combinedData, searchText]);
 
@@ -132,6 +132,7 @@ const HomeContainer = () => {
           onDelete={onDelete}
           data={data}
           handlePin={handlePin}
+          searchResults={searchResults}
         >
           <SearchBar
             handleSearch={handleSearch}

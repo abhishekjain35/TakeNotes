@@ -1,9 +1,9 @@
 import React from "react";
-import MicIcon from "@material-ui/icons/Mic";
 import { makeStyles } from "@material-ui/core/styles";
-import "./search.css";
+import MicIcon from "@material-ui/icons/Mic";
 import SearchIcon from "@material-ui/icons/Search";
 import useAutocomplete from "@material-ui/lab/useAutocomplete";
+import "./search.css";
 
 const useStyles = makeStyles((theme) => ({
   label: {
@@ -56,7 +56,7 @@ const SearchBar = ({ notes, searchText, handleSearch, handleOptionClick }) => {
 
   React.useEffect(() => {
     if (focused) {
-      let list = document.querySelector(".searchBox")
+      let list = document.querySelector(".searchBox");
       setRef(list);
     }
   }, [focused]);
