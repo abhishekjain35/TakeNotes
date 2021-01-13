@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import MicIcon from "@material-ui/icons/Mic";
 import SearchIcon from "@material-ui/icons/Search";
+import ClearIcon from "@material-ui/icons/Clear";
 import useAutocomplete from "@material-ui/lab/useAutocomplete";
 import "./search.css";
 
@@ -10,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     display: "block",
   },
   listbox: {
-    width: 300,
+    width: 200,
     margin: 0,
     padding: 0,
     zIndex: 1,
@@ -34,13 +35,17 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "rgba(0, 0, 0, 0.04)",
       color: "rgba(0, 0, 0, 0.87)",
     },
+    "& div": {
+      display: "flex",
+      justifyContent: "flex-end",
+    },
+    "& svg": {
+      cursor: "pointer",
+    },
   },
 }));
 
-const SearchBar = ({ notes, searchText, handleSearch, handleOptionClick }) => {
-  const classes = useStyles();
-  const [inputRef, setRef] = React.useState(null);
-
+const SearchBar = ({ notes, searchText, handleSearch, handleOptionClick, titles }) => {
   const {
     getRootProps,
     getInputProps,
@@ -53,6 +58,10 @@ const SearchBar = ({ notes, searchText, handleSearch, handleOptionClick }) => {
     options: notes,
     getOptionLabel: (option) => option.data.title,
   });
+  const classes = useStyles();
+  const [inputRef, setRef] = useState(null);
+  const [showSuggestions, setShowSuggestions] = useState(true);
+  console.log(titles, groupedOptions);
 
   React.useEffect(() => {
     if (focused) {
@@ -74,14 +83,17 @@ const SearchBar = ({ notes, searchText, handleSearch, handleOptionClick }) => {
         onChange={handleSearch}
       />
       <MicIcon className="MicIcon" />
-      <input type="submit" value="Search" className="searchButton" />
-      {groupedOptions.length > 0 ? (
+      {/* <input type="submit" value="Search" className="searchButton" /> */}
+      {showSuggestions && groupedOptions.length && titles.length? (
         <ul
           className={classes.listbox}
           {...getListboxProps()}
           id="listContainer"
         >
-          {groupedOptions.map((option, index) => (
+          <div onClick={() => setShowSuggestions(false)}>
+            <ClearIcon />
+          </div>
+          {titles.map((option, index) => (
             <li
               {...getOptionProps({ option, index })}
               onClick={() => {

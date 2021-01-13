@@ -10,6 +10,7 @@ const HomeContainer = () => {
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [titles, setTitles] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -31,7 +32,9 @@ const HomeContainer = () => {
           });
           normalItems.sort((a, b) => b.data.timestamp - a.data.timestamp);
           pinnedItems.sort((a, b) => b.data.timestamp - a.data.timestamp);
-          setCombinedData([...normalItems, ...pinnedItems]);
+          let fullData = [...normalItems, ...pinnedItems];
+          setTitles(fullData);
+          setCombinedData(fullData);
           setData({ pinnedItems, normalItems });
           setLoading(false);
         });
@@ -96,6 +99,10 @@ const HomeContainer = () => {
   };
   const handleSearch = (e) => {
     setSearchText(e.target.value);
+    let objs = combinedData.filter((obj) =>
+      obj.data.title.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setTitles(objs);
   };
 
   const handleOptionClick = (text) => {
@@ -116,7 +123,10 @@ const HomeContainer = () => {
         while ((currentNode = ni.nextNode())) {
           text += currentNode.textContent;
         }
-        return text.includes(searchText);
+        return (
+          text.toLowerCase().includes(searchText.toLowerCase()) ||
+          obj.data.title.toLowerCase().includes(searchText.toLowerCase())
+        );
       });
       setSearchResults(res);
     }
@@ -139,6 +149,7 @@ const HomeContainer = () => {
             searchText={searchText}
             handleOptionClick={handleOptionClick}
             notes={combinedData}
+            titles={titles}
           />
         </HomeComponent>
       )}
