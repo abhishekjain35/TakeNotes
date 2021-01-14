@@ -1,7 +1,5 @@
 .searchContainer {
   display: flex;
-  /* flex: 1 1 300px;
-  position: relative; */
   border: 1px solid #ccc;
   width: 500px;
   border-radius: 5px;
@@ -10,12 +8,11 @@
 }
 
 .searchIcon {
-  /* padding: 0.5rem; */
   margin: auto 10px;
 }
 
 .MicIcon {
-  margin: auto 15px;
+  margin: auto 15px !important;
   cursor: pointer;
 }
 
@@ -24,4 +21,55 @@
   padding: 0.5rem 0.5rem 0.5rem 0;
   flex: 1;
   padding: 0 !important;
+}
+
+.pulse-ring {
+  content: "";
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ff3d7f;
+  border-radius: 50%;
+  position: absolute;
+  animation: pulsate infinite 1s;
+}
+
+@keyframes pulsate {
+  0% {
+    -webkit-transform: scale(1, 1);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1.2, 1.2);
+    opacity: 0;
+  }
+}
+
+#speech {
+  border: none;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  font-size: 3em;
+  position: relative;
+  display: inline-block;
+  line-height: 20px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+}
+
+#speech {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto 15px !important;
+  cursor: pointer;
 }

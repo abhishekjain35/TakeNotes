@@ -11,6 +11,24 @@ const HomeContainer = () => {
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [titles, setTitles] = useState([]);
+  const [isListening, setIsListening] = useState(false);
+
+  let SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+  let recognition = new SpeechRecognition();
+  recognition.continuous = true;
+  recognition.interimResults = true;
+
+  recognition.onspeechend = function () {
+    recognition.stop();
+    setIsListening(false);
+  };
+
+  recognition.onresult = function (event) {
+    var text = event.results[0][0].transcript;
+    setSearchText(text.toLowerCase());
+    console.log("Confidence: " + event.results[0][0].confidence, text);
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -109,6 +127,11 @@ const HomeContainer = () => {
     setSearchText(text);
   };
 
+  const handleSpeech = () => {
+    recognition.start();
+    setIsListening(true);
+  };
+
   useEffect(() => {
     if (searchText) {
       const res = combinedData.filter((obj) => {
@@ -124,8 +147,14 @@ const HomeContainer = () => {
           text += currentNode.textContent;
         }
         return (
-          text.toLowerCase().includes(searchText.toLowerCase()) ||
-          obj.data.title.toLowerCase().includes(searchText.toLowerCase())
+          text
+            .toLowerCase()
+            .replace(/\s/g, "")
+            .includes(searchText.toLowerCase().replace(/\s/g, "")) ||
+          obj.data.title
+            .toLowerCase()
+            .replace(/\s/g, "")
+            .includes(searchText.toLowerCase().replace(/\s/g, ""))
         );
       });
       setSearchResults(res);
@@ -150,6 +179,8 @@ const HomeContainer = () => {
             handleOptionClick={handleOptionClick}
             notes={combinedData}
             titles={titles}
+            isListening={isListening}
+            handleSpeech={handleSpeech}
           />
         </HomeComponent>
       )}

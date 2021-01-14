@@ -45,7 +45,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchBar = ({ notes, searchText, handleSearch, handleOptionClick, titles }) => {
+const SearchBar = ({
+  notes,
+  searchText,
+  handleSearch,
+  handleOptionClick,
+  titles,
+  isListening,
+  handleSpeech,
+}) => {
   const {
     getRootProps,
     getInputProps,
@@ -61,7 +69,6 @@ const SearchBar = ({ notes, searchText, handleSearch, handleOptionClick, titles 
   const classes = useStyles();
   const [inputRef, setRef] = useState(null);
   const [showSuggestions, setShowSuggestions] = useState(true);
-  console.log(titles, groupedOptions);
 
   React.useEffect(() => {
     if (focused) {
@@ -82,9 +89,11 @@ const SearchBar = ({ notes, searchText, handleSearch, handleOptionClick, titles 
         value={searchText}
         onChange={handleSearch}
       />
-      <MicIcon className="MicIcon" />
-      {/* <input type="submit" value="Search" className="searchButton" /> */}
-      {showSuggestions && groupedOptions.length && titles.length? (
+      <div id="speech">
+        <MicIcon className="MicIcon" onClick={handleSpeech} />
+        <div className={isListening ? "pulse-ring" : null}></div>
+      </div>
+      {showSuggestions && groupedOptions.length && titles.length ? (
         <ul
           className={classes.listbox}
           {...getListboxProps()}
