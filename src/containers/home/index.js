@@ -27,7 +27,6 @@ const HomeContainer = () => {
   recognition.onresult = function (event) {
     var text = event.results[0][0].transcript;
     setSearchText(text.toLowerCase());
-    console.log("Confidence: " + event.results[0][0].confidence, text);
   };
 
   useEffect(() => {
