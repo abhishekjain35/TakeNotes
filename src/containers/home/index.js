@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import HomeComponent from "../../components/home";
 import firebase, { firestore, auth } from "../../firebase";
 import Spinner from "../../reusable-components/spinner";

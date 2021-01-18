@@ -1,14 +1,8 @@
 import React from "react";
 import NavBarContainer from "../containers/notes";
-import NavBar from "../containers/navbar";
 
 const Notes = () => {
-    return (
-        <>
-            {/* <NavBar /> */}
-            <NavBarContainer />
-        </>
-    );
+  return <NavBarContainer />;
 };
 
 export default Notes;

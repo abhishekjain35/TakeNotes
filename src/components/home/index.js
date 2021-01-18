@@ -1,7 +1,6 @@
 import React from "react";
 import SimpleCard from "./card";
 import Grid from "@material-ui/core/Grid";
-import SearchBar from "./search";
 
 const HomeComponent = ({
   data,
