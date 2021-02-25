@@ -4,6 +4,8 @@ import MicIcon from "@material-ui/icons/Mic";
 import SearchIcon from "@material-ui/icons/Search";
 import ClearIcon from "@material-ui/icons/Clear";
 import useAutocomplete from "@material-ui/lab/useAutocomplete";
+import Button from "@material-ui/core/Button";
+import CloseIcon from "@material-ui/icons/Close";
 import "./search.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +45,10 @@ const useStyles = makeStyles((theme) => ({
       cursor: "pointer",
     },
   },
+  margin: {
+    margin: theme.spacing(1),
+    minWidth: 0,
+  },
 }));
 
 const SearchBar = ({
@@ -53,6 +59,8 @@ const SearchBar = ({
   titles,
   isListening,
   handleSpeech,
+  isSpeechSupported,
+  closeRecognitionError,
 }) => {
   const {
     getRootProps,
@@ -78,44 +86,62 @@ const SearchBar = ({
   }, [focused]);
 
   return (
-    <div className="searchContainer" {...getRootProps()}>
-      <SearchIcon className="searchIcon" />
-      <input
-        className="searchBox"
-        type="search"
-        name="search"
-        placeholder="Search..."
-        {...getInputProps()}
-        value={searchText}
-        onChange={handleSearch}
-      />
-      <div id="speech">
-        <MicIcon className="MicIcon" onClick={handleSpeech} />
-        <div className={isListening ? "pulse-ring" : null}></div>
+    <>
+      <div className="searchContainer" {...getRootProps()}>
+        <SearchIcon className="searchIcon" />
+        <input
+          className="searchBox"
+          type="search"
+          name="search"
+          placeholder="Search..."
+          {...getInputProps()}
+          value={searchText}
+          onChange={handleSearch}
+        />
+        <div id="speech">
+          <MicIcon className="MicIcon" onClick={handleSpeech} />
+          <div className={isListening ? "pulse-ring" : null}></div>
+        </div>
+        {showSuggestions && groupedOptions.length && titles.length ? (
+          <ul
+            className={classes.listbox}
+            {...getListboxProps()}
+            id="listContainer"
+          >
+            <div onClick={() => setShowSuggestions(false)}>
+              <ClearIcon />
+            </div>
+            {titles.map((option, index) => (
+              <li
+                {...getOptionProps({ option, index })}
+                onClick={() => {
+                  handleOptionClick(option.data.title);
+                  inputRef.blur();
+                }}
+              >
+                {option.data.title}
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </div>
-      {showSuggestions && groupedOptions.length && titles.length ? (
-        <ul
-          className={classes.listbox}
-          {...getListboxProps()}
-          id="listContainer"
-        >
-          <div onClick={() => setShowSuggestions(false)}>
-            <ClearIcon />
-          </div>
-          {titles.map((option, index) => (
-            <li
-              {...getOptionProps({ option, index })}
-              onClick={() => {
-                handleOptionClick(option.data.title);
-                inputRef.blur();
-              }}
-            >
-              {option.data.title}
-            </li>
-          ))}
-        </ul>
+      {!isSpeechSupported ? (
+        <div className="errContainer">
+          <p className="msg">
+            Sorry, speech recognition is not supported in your browser :(
+          </p>
+          <Button
+            variant="outlined"
+            size="small"
+            color="primary"
+            className={classes.margin}
+            onClick={closeRecognitionError}
+          >
+            <CloseIcon />
+          </Button>
+        </div>
       ) : null}
-    </div>
+    </>
   );
 };
 

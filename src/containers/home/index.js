@@ -5,6 +5,9 @@ import Spinner from "../../reusable-components/spinner";
 import SearchBar from "../../components/home/search";
 
 const HomeContainer = () => {
+  let SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+    
   const [data, setData] = useState({});
   const [combinedData, setCombinedData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -12,22 +15,25 @@ const HomeContainer = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [titles, setTitles] = useState([]);
   const [isListening, setIsListening] = useState(false);
+  const [isSpeechSupported, setIsSpeechSupported] = useState(true);
 
-  let SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
-  let recognition = new SpeechRecognition();
-  recognition.continuous = true;
-  recognition.interimResults = true;
+  
 
-  recognition.onspeechend = function () {
-    recognition.stop();
-    setIsListening(false);
-  };
+  let recognition = SpeechRecognition ? new SpeechRecognition() : null;
+  if (recognition) {
+    recognition.continuous = true;
+    recognition.interimResults = true;
 
-  recognition.onresult = function (event) {
-    var text = event.results[0][0].transcript;
-    setSearchText(text.toLowerCase());
-  };
+    recognition.onspeechend = function () {
+      recognition.stop();
+      setIsListening(false);
+    };
+
+    recognition.onresult = function (event) {
+      var text = event.results[0][0].transcript;
+      setSearchText(text.toLowerCase());
+    };
+  }
 
   useEffect(() => {
     setLoading(true);
@@ -127,9 +133,17 @@ const HomeContainer = () => {
   };
 
   const handleSpeech = () => {
+    if(!recognition){
+      setIsSpeechSupported(false)
+      return;
+    }
     recognition.start();
     setIsListening(true);
   };
+
+  const closeRecognitionError = () => {
+    setIsSpeechSupported(true)
+  }
 
   useEffect(() => {
     if (searchText) {
@@ -178,8 +192,10 @@ const HomeContainer = () => {
             handleOptionClick={handleOptionClick}
             notes={combinedData}
             titles={titles}
+            isSpeechSupported={isSpeechSupported}
             isListening={isListening}
             handleSpeech={handleSpeech}
+            closeRecognitionError={closeRecognitionError}
           />
         </HomeComponent>
       )}

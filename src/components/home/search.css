@@ -7,6 +7,17 @@
   margin: 20px auto;
 }
 
+.errContainer {
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (max-width: 600px) {
+  .searchContainer {
+    width: initial;
+  }
+}
+
 .searchIcon {
   margin: auto 10px;
 }
