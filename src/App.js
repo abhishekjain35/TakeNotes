@@ -1,39 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Redirect, Route, Switch, withRouter } from "react-router-dom";
+import React from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 import Home from "./pages/home";
 import Signup from "./pages/signup";
 import SignIn from "./pages/signin";
 import Notes from "./pages/notes";
-import { firestore, auth } from "./firebase";
 import UpdateANote from "./pages/updateNote";
-import Spinner from "./reusable-components/spinner";
 import NotFound from "./pages/not-found";
-import NavBar from "./containers/navbar";
+import AuthRoute from "./reusable-components/auth";
 
-function App({ history }) {
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    auth.onAuthStateChanged((user) => {
-      firestore.enablePersistence().catch((err) => console.log(err));
-      if (!user) {
-        history.push("/signin");
-        setLoading(false);
-        return;
-      }
-      setLoading(false);
-    });
-  }, [history]);
-
-  if (loading) {
-    return <Spinner />;
-  }
-
+function App() {
   return (
     <div className="App">
-      <NavBar />
-
       <Switch>
         <Route exact path="/takeanote">
           <Notes />
@@ -47,9 +24,7 @@ function App({ history }) {
         <Route exact path="/signup">
           <Signup />
         </Route>
-        <Route exact path="/">
-          <Home />
-        </Route>
+        <AuthRoute exact path="/" component={Home} />
         <Route path="/not-found">
           <NotFound />
         </Route>
@@ -59,4 +34,4 @@ function App({ history }) {
   );
 }
 
-export default withRouter(App);
+export default App;

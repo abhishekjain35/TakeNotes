@@ -3,11 +3,12 @@ import HomeComponent from "../../components/home";
 import firebase, { firestore, auth } from "../../firebase";
 import Spinner from "../../reusable-components/spinner";
 import SearchBar from "../../components/home/search";
+import NavBarContainer from "../navbar";
 
 const HomeContainer = () => {
   let SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
-    
+
   const [data, setData] = useState({});
   const [combinedData, setCombinedData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -16,8 +17,6 @@ const HomeContainer = () => {
   const [titles, setTitles] = useState([]);
   const [isListening, setIsListening] = useState(false);
   const [isSpeechSupported, setIsSpeechSupported] = useState(true);
-
-  
 
   let recognition = SpeechRecognition ? new SpeechRecognition() : null;
   if (recognition) {
@@ -133,8 +132,8 @@ const HomeContainer = () => {
   };
 
   const handleSpeech = () => {
-    if(!recognition){
-      setIsSpeechSupported(false)
+    if (!recognition) {
+      setIsSpeechSupported(false);
       return;
     }
     recognition.start();
@@ -142,8 +141,8 @@ const HomeContainer = () => {
   };
 
   const closeRecognitionError = () => {
-    setIsSpeechSupported(true)
-  }
+    setIsSpeechSupported(true);
+  };
 
   useEffect(() => {
     if (searchText) {
@@ -179,25 +178,28 @@ const HomeContainer = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <HomeComponent
-          show={!searchText ? true : false}
-          onDelete={onDelete}
-          data={data}
-          handlePin={handlePin}
-          searchResults={searchResults}
-        >
-          <SearchBar
-            handleSearch={handleSearch}
-            searchText={searchText}
-            handleOptionClick={handleOptionClick}
-            notes={combinedData}
-            titles={titles}
-            isSpeechSupported={isSpeechSupported}
-            isListening={isListening}
-            handleSpeech={handleSpeech}
-            closeRecognitionError={closeRecognitionError}
-          />
-        </HomeComponent>
+        <>
+          <NavBarContainer />
+          <HomeComponent
+            show={!searchText ? true : false}
+            onDelete={onDelete}
+            data={data}
+            handlePin={handlePin}
+            searchResults={searchResults}
+          >
+            <SearchBar
+              handleSearch={handleSearch}
+              searchText={searchText}
+              handleOptionClick={handleOptionClick}
+              notes={combinedData}
+              titles={titles}
+              isSpeechSupported={isSpeechSupported}
+              isListening={isListening}
+              handleSpeech={handleSpeech}
+              closeRecognitionError={closeRecognitionError}
+            />
+          </HomeComponent>
+        </>
       )}
     </>
   );
